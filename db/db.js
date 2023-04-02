@@ -1,6 +1,11 @@
-const pg = require("pg")
-const db = new pg.Pool({
-    database: "trivia"
-})
+const { Pool } = require("pg");
 
-module.exports = db
+const sessionPool = new Pool({
+  user: "postgres",
+  host: "containers-us-west-162.railway.app",
+  database: "railway",
+  password: "ZemQ2A0NIorXg5EihiSq",
+  port: 6917,
+});
+
+module.exports = sessionPool;
