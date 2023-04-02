@@ -126,7 +126,9 @@ export function renderQuiz(id) {
             console.log(currentQuestionId);
             //TODO: replace user_id
             axios
-              .get(`/api/trivia_answer?quiz_id=${question.quiz_id}`)
+              .get(
+                `https://trivial-clone-production.up.railway.app/api/trivia_answer?quiz_id=${question.quiz_id}`
+              )
               .then((response) => {
                 console.log(response.data);
                 const avgScore = Math.round(response.data.avg * 100);
