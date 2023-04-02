@@ -26,6 +26,10 @@ app.use(
   })
 );
 
+app.get("/", (req, res) => {
+  res.sendFile(__dirname + "/index.html");
+});
+
 app.get("/api/hello", (req, res) => {
   res.json({ message: "hello" });
 });
@@ -133,7 +137,6 @@ app.post("/users", (req, res) => {
   db.query(sql, [name, email, generateHash]).then((result, err) => {
     if (err) {
       res.status(400);
-      
     }
     console.log("response", result, err);
     const id = result.rows[0].id;
@@ -152,9 +155,9 @@ app.post("/users/login", (req, res) => {
 
     if (queryResult.rows.length == 0) {
       res.json({ status: "Incorrect Email or Password" });
-    //     res.status(400).send({
-    //     status: "Incorrect Email or Password"
-    // })
+      //     res.status(400).send({
+      //     status: "Incorrect Email or Password"
+      // })
     } else {
       const userRow = queryResult.rows[0];
       // console.log(userRow)
@@ -178,24 +181,24 @@ app.post("/users/login", (req, res) => {
         } else if (!result) {
           console.log("why is this happening");
           res.json({ status: "Incorrect Email or Password" });
-        //   res.status(400).send({
-        //       status: "Incorrect Email or Password"
-        //   })
+          //   res.status(400).send({
+          //       status: "Incorrect Email or Password"
+          //   })
         }
       });
-    //   .catch((err) => {
-    //       console.log(err)
-    //       res.status(500).send({
-    //           message: 'server error'
-    //       })
-    //   })
+      //   .catch((err) => {
+      //       console.log(err)
+      //       res.status(500).send({
+      //           message: 'server error'
+      //       })
+      //   })
     }
-//   })  .catch((err) => {
-//     console.log(err)
-//     res.status(500).send({
-//         message: 'server error'
-//     })
-})
+    //   })  .catch((err) => {
+    //     console.log(err)
+    //     res.status(500).send({
+    //         message: 'server error'
+    //     })
+  });
 });
 
 app.get("/users/guestLogin", (req, res) => {
