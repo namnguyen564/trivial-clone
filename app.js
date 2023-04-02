@@ -111,17 +111,14 @@ app.get("/api/quiz", (req, res) => {
   });
 });
 
-app.get(
-  "https://trivial-clone-production.up.railway.app/api/quiz/:id",
-  (req, res) => {
-    const { id } = req.params;
-    const sql =
-      "SELECT questions.id, quizes.name, questions.question, questions.answer1, questions.answer2, questions.answer3, questions.answer4, correct_answer, questions.quiz_id FROM quizes INNER JOIN questions ON quizes.id = questions.quiz_id WHERE quizes.id = $1";
-    sessionPool.query(sql, [id]).then((result) => {
-      res.json(result.rows);
-    });
-  }
-);
+app.get("/api/quiz/:id", (req, res) => {
+  const { id } = req.params;
+  const sql =
+    "SELECT questions.id, quizes.name, questions.question, questions.answer1, questions.answer2, questions.answer3, questions.answer4, correct_answer, questions.quiz_id FROM quizes INNER JOIN questions ON quizes.id = questions.quiz_id WHERE quizes.id = $1";
+  sessionPool.query(sql, [id]).then((result) => {
+    res.json(result.rows);
+  });
+});
 
 // app.delete("/api/quiz/:id", (req, res) => {
 //   const { id } = req.params;
@@ -253,22 +250,19 @@ app.get("/api/trivia_answer", (req, res) => {
   });
 });
 
-app.get(
-  "https://trivial-clone-production.up.railway.app/api/leaderboard",
-  (req, res) => {
-    //     SELECT *
-    // FROM Table1
-    // INNER JOIN Table2
-    //     ON Condition
-    // INNER JOIN Table3
-    //     ON Condition;
-    const sql =
-      "SELECT AVG(answers.score), users.name AS user, quizes.name AS quiz FROM answers INNER JOIN quizes ON answers.quiz_id = quizes.id INNER JOIN users ON answers.user_id = users.id GROUP BY users.id,quizes.id ORDER BY AVG(answers.score) DESC;";
-    sessionPool.query(sql).then((response) => {
-      res.json(response.rows);
-    });
-  }
-);
+app.get("/api/leaderboard", (req, res) => {
+  //     SELECT *
+  // FROM Table1
+  // INNER JOIN Table2
+  //     ON Condition
+  // INNER JOIN Table3
+  //     ON Condition;
+  const sql =
+    "SELECT AVG(answers.score), users.name AS user, quizes.name AS quiz FROM answers INNER JOIN quizes ON answers.quiz_id = quizes.id INNER JOIN users ON answers.user_id = users.id GROUP BY users.id,quizes.id ORDER BY AVG(answers.score) DESC;";
+  sessionPool.query(sql).then((response) => {
+    res.json(response.rows);
+  });
+});
 
 app.listen(process.env.PORT, () => {
   console.log(`Server is listening on port ${process.env.PORT}`);
