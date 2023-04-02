@@ -264,9 +264,7 @@ app.get("/api/leaderboard", (req, res) => {
   });
 });
 
-app.listen(apiUrl, () => {
-  console.log(`Server is listening on port ${apiUrl}`);
-});
+app.listen();
 // notes
 // let page = 'HOME'
 
