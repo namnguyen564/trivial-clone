@@ -10,14 +10,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/namnguyen564/trivial.git"
+    "url": "git+https://github.com/namnguyen564/trivial-clone.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/namnguyen564/trivial/issues"
+    "url": "https://github.com/namnguyen564/trivial-clone/issues"
   },
-  "homepage": "https://github.com/namnguyen564/trivial#readme",
+  "homepage": "https://github.com/namnguyen564/trivial-clone#readme",
   "devDependencies": {
     "@testing-library/dom": "^8.19.0",
     "axios-mock-adapter": "^1.21.2",
