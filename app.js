@@ -254,7 +254,7 @@ app.get("/api/trivia_answer", (req, res) => {
 });
 
 app.get(
-  "https://trivial-clone-production.up.railway.app//api/leaderboard",
+  "https://trivial-clone-production.up.railway.app/api/leaderboard",
   (req, res) => {
     //     SELECT *
     // FROM Table1
