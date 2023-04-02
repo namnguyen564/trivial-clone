@@ -26,10 +26,6 @@ app.use(
   })
 );
 
-app.get("/", (req, res) => {
-  res.sendFile(__dirname + "/index.html");
-});
-
 app.get("/api/hello", (req, res) => {
   res.json({ message: "hello" });
 });
