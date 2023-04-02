@@ -1,7 +1,7 @@
 require("dotenv").config();
 const express = require("express");
 // const db = require("./db/db.js");
-
+const apiUrl = process.env.API_URL;
 const { Pool } = require("pg");
 
 const sessionPool = new Pool({
@@ -264,8 +264,8 @@ app.get("/api/leaderboard", (req, res) => {
   });
 });
 
-app.listen(process.env.PORT, () => {
-  console.log(`Server is listening on port ${process.env.PORT}`);
+app.listen(apiUrl, () => {
+  console.log(`Server is listening on port ${apiUrl}`);
 });
 // notes
 // let page = 'HOME'
