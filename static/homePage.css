@@ -1,27 +1,27 @@
-@import url('https://fonts.googleapis.com/css2?family=Righteous&display=swap');
-#logOutButton{
-    font-weight: bold;
-    font-family: system-ui, sans-serif;
-    border: 5em;
-height:44px;
-cursor: pointer;
-outline: none;
-font-size: 16px;
--webkit-transform: translate(0);
-transform: translate(0);
-background-color: rgb(183, 169, 252);
-padding: 0.7em 2em;
-border-radius: 1px;
-box-shadow: 1px 1px 10px rgba(255, 255, 255, 0.438);
--webkit-transition: box-shadow 0.25s;
-transition: box-shadow 0.25s;
-color: rgb(86, 86, 86);
-text-align: right;
-position:relative;
-float:right;
-right: 30px;
-bottom: 160px;
-    /* padding: 7px;
+@import url("https://fonts.googleapis.com/css2?family=Righteous&display=swap");
+#logOutButton {
+  font-weight: bold;
+  font-family: system-ui, sans-serif;
+  border: 5em;
+  height: 44px;
+  cursor: pointer;
+  outline: none;
+  font-size: 16px;
+  -webkit-transform: translate(0);
+  transform: translate(0);
+  background-color: rgb(183, 169, 252);
+  padding: 0.7em 2em;
+  border-radius: 1px;
+  box-shadow: 1px 1px 10px rgba(255, 255, 255, 0.438);
+  -webkit-transition: box-shadow 0.25s;
+  transition: box-shadow 0.25s;
+  color: rgb(86, 86, 86);
+  text-align: right;
+  position: relative;
+  float: right;
+  right: 30px;
+  bottom: 160px;
+  /* padding: 7px;
     border: none;
     border-radius: 5px;
     color: white;
@@ -33,14 +33,30 @@ bottom: 160px;
     justify-content: right; */
 }
 
-.startQuizButton{
-
+.startQuizButton {
 }
 
 .quizItem {
-    font-family: system-ui, sans-serif;
-    color:rgb(52, 52, 52);
-    font-weight: 700;
-    
+  font-family: system-ui, sans-serif;
+  color: rgb(52, 52, 52);
+  font-weight: 700;
 }
 
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+tr:hover {
+  background-color: #ddd;
+}
