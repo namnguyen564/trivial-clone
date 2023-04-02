@@ -253,10 +253,9 @@ app.get("/api/leaderboard", (req, res) => {
   });
 });
 
-app.listen(port, function () {
-  console.log(`Listening at http://localhost:${port}`);
+app.listen(process.env.PORT, () => {
+  console.log(`Server is listening on port ${process.env.PORT}`);
 });
-
 // notes
 // let page = 'HOME'
 
