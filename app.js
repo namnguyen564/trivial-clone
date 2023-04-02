@@ -111,14 +111,17 @@ app.get("/api/quiz", (req, res) => {
   });
 });
 
-app.get("/api/quiz/:id", (req, res) => {
-  const { id } = req.params;
-  const sql =
-    "SELECT questions.id, quizes.name, questions.question, questions.answer1, questions.answer2, questions.answer3, questions.answer4, correct_answer, questions.quiz_id FROM quizes INNER JOIN questions ON quizes.id = questions.quiz_id WHERE quizes.id = $1";
-  sessionPool.query(sql, [id]).then((result) => {
-    res.json(result.rows);
-  });
-});
+app.get(
+  "https://trivial-clone-production.up.railway.app/api/quiz/:id",
+  (req, res) => {
+    const { id } = req.params;
+    const sql =
+      "SELECT questions.id, quizes.name, questions.question, questions.answer1, questions.answer2, questions.answer3, questions.answer4, correct_answer, questions.quiz_id FROM quizes INNER JOIN questions ON quizes.id = questions.quiz_id WHERE quizes.id = $1";
+    sessionPool.query(sql, [id]).then((result) => {
+      res.json(result.rows);
+    });
+  }
+);
 
 // app.delete("/api/quiz/:id", (req, res) => {
 //   const { id } = req.params;
