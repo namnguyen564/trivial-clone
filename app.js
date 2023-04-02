@@ -1,6 +1,17 @@
 require("dotenv").config();
 const express = require("express");
-const db = require("./db/db.js");
+// const db = require("./db/db.js");
+
+const { Pool } = require("pg");
+
+const sessionPool = new Pool({
+  user: "postgres",
+  host: "containers-us-west-162.railway.app",
+  database: "railway",
+  password: "ZemQ2A0NIorXg5EihiSq",
+  port: 6917,
+});
+
 const bodyParser = require("body-parser");
 const { response } = require("express");
 const axios = require("axios").default;
@@ -19,7 +30,7 @@ const pgSession = require("connect-pg-simple")(expressSession);
 app.use(
   expressSession({
     store: new pgSession({
-      pool: db,
+      pool: sessionPool,
       createTableIfMissing: true,
     }),
     secret: process.env.SECRET,
@@ -42,7 +53,7 @@ app.post("/api/trivia", (req, res) => {
     RETURNING id
     ;
     `;
-  db.query(sqlName, [quizName]).then(function (event) {
+  sessionPool.query(sqlName, [quizName]).then(function (event) {
     let quizID = event.rows[0].id;
     getQuizQestions(quizID, res, userCategory);
   });
@@ -73,7 +84,7 @@ function getQuizQestions(quizID, res, userCategory) {
             INSERT INTO questions(category, difficulty, question, answer1, answer2, answer3,answer4,correct_answer, quiz_id)
             VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9)`;
 
-      const promise = db.query(sql, [
+      const promise = sessionPool.query(sql, [
         category,
         difficulty,
         question,
@@ -95,7 +106,7 @@ function getQuizQestions(quizID, res, userCategory) {
 app.get("/api/quiz", (req, res) => {
   // console.log("app trivia endpoint hit")
   const sql = "SELECT * FROM quizes;";
-  db.query(sql).then((result) => {
+  sessionPool.query(sql).then((result) => {
     res.json(result.rows);
   });
 });
@@ -104,7 +115,7 @@ app.get("/api/quiz/:id", (req, res) => {
   const { id } = req.params;
   const sql =
     "SELECT questions.id, quizes.name, questions.question, questions.answer1, questions.answer2, questions.answer3, questions.answer4, correct_answer, questions.quiz_id FROM quizes INNER JOIN questions ON quizes.id = questions.quiz_id WHERE quizes.id = $1";
-  db.query(sql, [id]).then((result) => {
+  sessionPool.query(sql, [id]).then((result) => {
     res.json(result.rows);
   });
 });
@@ -130,7 +141,7 @@ app.post("/users", (req, res) => {
   const sql =
     "INSERT INTO users (name, email, password) VALUES ($1, $2, $3) RETURNING *;";
 
-  db.query(sql, [name, email, generateHash]).then((result, err) => {
+  sessionPool.query(sql, [name, email, generateHash]).then((result, err) => {
     if (err) {
       res.status(400);
     }
@@ -146,7 +157,7 @@ app.post("/users/login", (req, res) => {
   let { email, password_hash } = req.body;
 
   const sql = "SELECT id,name,password,email FROM users WHERE email=$1";
-  db.query(sql, [email]).then((queryResult) => {
+  sessionPool.query(sql, [email]).then((queryResult) => {
     console.log(queryResult.rows);
 
     if (queryResult.rows.length == 0) {
@@ -200,7 +211,7 @@ app.post("/users/login", (req, res) => {
 app.get("/users/guestLogin", (req, res) => {
   const sql = "SELECT * FROM users WHERE id=1;";
 
-  db.query(sql).then((result) => {
+  sessionPool.query(sql).then((result) => {
     req.session.userId = result.id;
     req.session.userName = result.name;
     req.session.userEmail = result.email;
@@ -221,7 +232,7 @@ app.post("/api/trivia_answer", (req, res) => {
   // console.log(values);
   const sql =
     "INSERT INTO answers (user_id, quiz_id, question_id, answer, score) VALUES ($1, $2, $3, $4, $5)";
-  db.query(sql, values).then(() => res.json({ status: "kinda-ok" }));
+  sessionPool.query(sql, values).then(() => res.json({ status: "kinda-ok" }));
 });
 
 //getting scores from the quiz
@@ -233,7 +244,7 @@ app.get("/api/trivia_answer", (req, res) => {
   // const sql = 'SELECT AVG(score) FROM answers WHERE user_id=$1 AND quiz_id=$2 GROUP BY quiz_id;'
   const sql =
     "SELECT AVG(answers.score), quizes.name FROM answers INNER JOIN quizes ON answers.quiz_id = quizes.id WHERE answers.user_id=$1 AND answers.quiz_id=$2 GROUP BY quizes.name;";
-  db.query(sql, [user_id, quiz_id]).then((response) => {
+  sessionPool.query(sql, [user_id, quiz_id]).then((response) => {
     // res.json({"status": "pretty-good", "data": response.rows[0]})
     res.json(response.rows[0]);
   });
@@ -248,7 +259,7 @@ app.get("/api/leaderboard", (req, res) => {
   //     ON Condition;
   const sql =
     "SELECT AVG(answers.score), users.name AS user, quizes.name AS quiz FROM answers INNER JOIN quizes ON answers.quiz_id = quizes.id INNER JOIN users ON answers.user_id = users.id GROUP BY users.id,quizes.id ORDER BY AVG(answers.score) DESC;";
-  db.query(sql).then((response) => {
+  sessionPool.query(sql).then((response) => {
     res.json(response.rows);
   });
 });
