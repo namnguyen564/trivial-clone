@@ -253,19 +253,22 @@ app.get("/api/trivia_answer", (req, res) => {
   });
 });
 
-app.get("/api/leaderboard", (req, res) => {
-  //     SELECT *
-  // FROM Table1
-  // INNER JOIN Table2
-  //     ON Condition
-  // INNER JOIN Table3
-  //     ON Condition;
-  const sql =
-    "SELECT AVG(answers.score), users.name AS user, quizes.name AS quiz FROM answers INNER JOIN quizes ON answers.quiz_id = quizes.id INNER JOIN users ON answers.user_id = users.id GROUP BY users.id,quizes.id ORDER BY AVG(answers.score) DESC;";
-  sessionPool.query(sql).then((response) => {
-    res.json(response.rows);
-  });
-});
+app.get(
+  "https://trivial-clone-production.up.railway.app//api/leaderboard",
+  (req, res) => {
+    //     SELECT *
+    // FROM Table1
+    // INNER JOIN Table2
+    //     ON Condition
+    // INNER JOIN Table3
+    //     ON Condition;
+    const sql =
+      "SELECT AVG(answers.score), users.name AS user, quizes.name AS quiz FROM answers INNER JOIN quizes ON answers.quiz_id = quizes.id INNER JOIN users ON answers.user_id = users.id GROUP BY users.id,quizes.id ORDER BY AVG(answers.score) DESC;";
+    sessionPool.query(sql).then((response) => {
+      res.json(response.rows);
+    });
+  }
+);
 
 app.listen(process.env.PORT, () => {
   console.log(`Server is listening on port ${process.env.PORT}`);
