@@ -1,7 +1,6 @@
 // global state to track which question is being answered
 // corresponds to an index
 let currentQuestionId = 0;
-// let renderedQuizes = []
 
 function handleChange(e) {
   // e.preventDefault();
