@@ -103,6 +103,7 @@ export function renderQuiz(id) {
         }
 
         // ON SUBMIT HANDLING
+        console.log("submitting");
         const questionForm = document.getElementById(`question-form-${index}`);
         questionForm.addEventListener("submit", function (event) {
           event.preventDefault();
