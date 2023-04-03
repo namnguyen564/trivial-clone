@@ -94,14 +94,13 @@ export function renderQuiz(id) {
         questionContainer.style.display = "block";
 
         // HANDLING CLOSING MODAL
-        const span = document.getElementsByClassName("close")[index];
-        const closeModal = function () {
-          console.log("XXX Clicked");
-          questionContainer.style.display = "none";
-          // remove the event listener after being triggered
-          span.removeEventListener("click", closeModal);
-        };
-        span.addEventListener("click", closeModal);
+        const spans = document.getElementsByClassName("close");
+        for (let i = 0; i < spans.length; i++) {
+          spans[i].addEventListener("click", function () {
+            console.log("XXX Clicked");
+            questionContainer.style.display = "none";
+          });
+        }
 
         // ON SUBMIT HANDLING
         const questionForm = document.getElementById(`question-form-${index}`);
@@ -122,9 +121,14 @@ export function renderQuiz(id) {
           };
           console.log(data);
 
-          axios.post("/api/trivia_answer", data).then((response) => {
-            console.log(response);
-          });
+          axios
+            .post(
+              "https://trivial-clone-production.up.railway.app/api/trivia_answer",
+              data
+            )
+            .then((response) => {
+              console.log(response);
+            });
           if (currentQuestionId == questions.length - 1) {
             console.log(currentQuestionId);
             //TODO: replace user_id
