@@ -95,10 +95,13 @@ export function renderQuiz(id) {
 
         // HANDLING CLOSING MODAL
         const span = document.getElementsByClassName("close")[index];
-        span.addEventListener("click", function () {
+        const closeModal = function () {
           console.log("XXX Clicked");
           questionContainer.style.display = "none";
-        });
+          // remove the event listener after being triggered
+          span.removeEventListener("click", closeModal);
+        };
+        span.addEventListener("click", closeModal);
 
         // ON SUBMIT HANDLING
         const questionForm = document.getElementById(`question-form-${index}`);
