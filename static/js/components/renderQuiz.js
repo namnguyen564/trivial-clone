@@ -98,6 +98,7 @@ export function renderQuiz(id) {
           spans[i].addEventListener("click", function () {
             console.log("XXX Clicked");
             questionContainer.style.display = "none";
+            currentQuestionId = 0;
           });
         }
 
