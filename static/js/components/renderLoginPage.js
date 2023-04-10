@@ -1,44 +1,40 @@
-import { renderSignUpPage } from './renderSignUpPage.js'
-import { verifyLogin } from './verifyLogin.js'
-import { loggedOut } from './userStatus.js'
-import { guestLogin } from './guestLogin.js'
-import{rederNav} from './renderNavBar.js'
-import{loggedIn} from './userStatus.js'
-
+import { renderSignUpPage } from "./renderSignUpPage.js";
+import { verifyLogin } from "./verifyLogin.js";
+import { loggedOut } from "./userStatus.js";
+import { guestLogin } from "./guestLogin.js";
+import { rederNav } from "./renderNavBar.js";
+import { loggedIn } from "./userStatus.js";
 
 export function renderLoginPage() {
-    const header = document.getElementById("header-nav");
-    const middle = document.getElementById("middle-nav");
-    const errorMsg = document.getElementById("error-msg");
+  const header = document.getElementById("header-nav");
+  const middle = document.getElementById("middle-nav");
+  const errorMsg = document.getElementById("error-msg");
 
-    if(isLoggedIn){
-        header.innerHTML = `
+  if (isLoggedIn) {
+    header.innerHTML = `
         <h1 id='title'>TRIVIAL</h1>
         <p1 id="description">SUPER FUN TRIVIA GAME!</p1>
         <input type="submit" value="Log Out" id="logOutButton">
-        `   
-        
+        `;
 
-        middle.innerHTML =''
-       
-        errorMsg.innerHTML =  ''
+    middle.innerHTML = "";
 
-        // loggedIn()
-        rederNav()
-        
-        document.getElementById('logOutButton').addEventListener('click', loggedOut)
+    errorMsg.innerHTML = "";
 
-        
-    }
+    // loggedIn()
+    rederNav();
 
+    document
+      .getElementById("logOutButton")
+      .addEventListener("click", loggedOut);
+  }
 
-
-    if (!isLoggedIn()){
-        header.innerHTML = `
+  if (!isLoggedIn()) {
+    header.innerHTML = `
        <h1 id='title'>TRIVIAL</h1>
        <p1 id="description">SUPER FUN TRIVIA GAME!</p1>
-        `
-        middle.innerHTML = `
+        `;
+    middle.innerHTML = `
         <div id="loginContainer">
      
         <form id="login-form">
@@ -47,19 +43,26 @@ export function renderLoginPage() {
         <input type="submit" value="Login" id="login-form-submit">
         </form>
         <input type="submit" value="Sign Up" id="signUpButton">
-        <input type="submit" id="guestLoginButton" value="Guest Login" >
+     
         </div>
-        `
-        
-    document.getElementById('signUpButton').addEventListener('click', renderSignUpPage)
-    document.getElementById('login-form-submit').addEventListener('click', verifyLogin)
-    document.getElementById('guestLoginButton').addEventListener('click', guestLogin)
-    
+        `;
 
-    }
+    document
+      .getElementById("signUpButton")
+      .addEventListener("click", renderSignUpPage);
+    document
+      .getElementById("login-form-submit")
+      .addEventListener("click", verifyLogin);
+    document
+      .getElementById("guestLoginButton")
+      .addEventListener("click", guestLogin);
+  }
 }
 
-function isLoggedIn(){
-    return window.sessionStorage.getItem("logged_in") === "true"
+function isLoggedIn() {
+  return window.sessionStorage.getItem("logged_in") === "true";
 }
 
+{
+  /* <input type="submit" id="guestLoginButton" value="Guest Login" > */
+}

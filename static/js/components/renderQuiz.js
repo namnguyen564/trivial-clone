@@ -19,14 +19,7 @@ export function renderQuiz(id) {
   // console.log("rendering quiz id", id)
   // const quiz = document.getElementById(`quiz-${id}`);
   const page = document.getElementById("page");
-  let questionContainer = document.getElementById("question-container");
-  if (questionContainer) {
-    // If the question container already exists, remove it
-    questionContainer.remove();
-  }
-  questionContainer = document.createElement("div");
-  questionContainer.id = "question-container";
-  questionContainer.className = "modal";
+
   //  <div id="myModal" class="modal">
 
   //   <div class="modal-content">
