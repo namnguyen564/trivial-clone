@@ -1,3 +1,7 @@
+html {
+  background-color: #f2ebeb;
+}
+
 #loginContainer {
   margin: auto;
   text-align: center;
@@ -89,4 +93,18 @@
   margin-left: auto;
   margin-right: auto;
   display: block;
+}
+
+#guestdetails {
+  position: absolute;
+  top: 20%;
+  right: 5%;
+  transform: translate(0, -50%);
+  text-align: center;
+  border: 2px solid black;
+  width: 400px;
+}
+
+#logindetailstitle {
+  font-size: 25px;
 }

@@ -35,15 +35,22 @@ export function renderLoginPage() {
        <p1 id="description">SUPER FUN TRIVIA GAME!</p1>
         `;
     middle.innerHTML = `
+    <div id="guestdetails">
+    <h3 id=logindetailstitle>Guest Login Details:</h3>
+    <h3>Email: guest123@gmail.com</h3>
+    <h3>Password: 123</h3>
+    </div>
         <div id="loginContainer">
      
         <form id="login-form">
         <input type="text" name="email" id="email-field" class="login-form-field" placeholder="Email">
         <input type="password" name="password" id="password-field" class="login-form-field" placeholder="Password">
+
+       
         <input type="submit" value="Login" id="login-form-submit">
         </form>
         <input type="submit" value="Sign Up" id="signUpButton">
-     
+
         </div>
         `;
 
